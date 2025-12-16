@@ -1,0 +1,22 @@
+//manages the places that are selectes or added by user using the riverpod package
+
+import 'package:favourite_place/models/place.dart';
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:riverpod/riverpod.dart';
+
+class UserPlacesNotifier extends StateNotifier<List<Place>> {
+  //constructor function UserPlacesNotifier() that points to the parent class using super and gives initial state here is empty list ... state managed by riverpod must not be added to the memory
+  UserPlacesNotifier() : super(const []);
+
+  //method that allows us to add new place using the riverpod by creating a new object
+  //NOTE: we cannot directly add old object to memory instead have to create new obj
+  void addPlace(String title) {
+    final newPlace = Place(title: title);
+    state = [
+      newPlace,
+      ...state,
+    ]; //initate a new list and add new place to it ... is used to seperate all elements in list
+  }
+}
+
+final userPlacesProvider = StateNotifierProvider((ref) => UserPlacesNotifier());
