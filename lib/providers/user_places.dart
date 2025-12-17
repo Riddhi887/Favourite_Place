@@ -2,7 +2,7 @@
 
 import 'package:favourite_place/models/place.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:riverpod/riverpod.dart';
+
 
 class UserPlacesNotifier extends StateNotifier<List<Place>> {
   //constructor function UserPlacesNotifier() that points to the parent class using super and gives initial state here is empty list ... state managed by riverpod must not be added to the memory
@@ -19,4 +19,8 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
   }
 }
 
-final userPlacesProvider = StateNotifierProvider((ref) => UserPlacesNotifier());
+//StateNotifierProvider will take UserPlacesNotifier, List<Place> as parameter to watch it and display it tells dart userPlaces in places.dart is actually list of places of user
+final userPlacesProvider = StateNotifierProvider<UserPlacesNotifier, List<Place>>
+(
+  (ref) => UserPlacesNotifier(),
+);

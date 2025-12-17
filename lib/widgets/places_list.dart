@@ -1,4 +1,5 @@
 import 'package:favourite_place/models/place.dart';
+import 'package:favourite_place/screens/place_details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,17 +11,17 @@ class PlacesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (places.isEmpty) {
-        return Center(
+      return Center(
         child: Text(
-               'No Places Added Yet.',
-               style: GoogleFonts.aBeeZee(
-               textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-               color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  ),
-                  ),
-                  );
-                  }
+          'No Places Added Yet.',
+          style: GoogleFonts.aBeeZee(
+            textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+      );
+    }
 
     //if the places are present in the list
     return ListView.builder(
@@ -28,11 +29,24 @@ class PlacesList extends StatelessWidget {
       itemBuilder: (ctx, index) => ListTile(
         title: Text(
           places[index].title,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface
+          style: GoogleFonts.aBeeZee(
+            // choose any Google font
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+            color: const Color.fromARGB(255, 255, 255, 255),
+          ),
+        ),
+
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) =>PlaceDetailsScreen(
+                place: places[index]
+                ),
+                ),
+                );
+        },
       ),
-      ),
-      ),
-      );
+    );
   }
 }
