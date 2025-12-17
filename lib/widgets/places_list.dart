@@ -22,16 +22,21 @@ class PlacesList extends StatelessWidget {
         ),
       );
     }
-
+   
     //if the places are present in the list
     return ListView.builder(
       itemCount: places.length,
+     
       itemBuilder: (ctx, index) => ListTile(
+        leading: CircleAvatar(
+          radius: 28,
+          backgroundImage: FileImage(places[index].image),    //using Image.file we gwt widget but with FileImage we get provider (necessary here)
+        ),
         title: Text(
           places[index].title,
           style: GoogleFonts.aBeeZee(
             // choose any Google font
-            fontSize: 17,
+            fontSize: 19,
             fontWeight: FontWeight.w600,
             color: const Color.fromARGB(255, 255, 255, 255),
           ),

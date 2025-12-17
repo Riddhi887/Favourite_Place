@@ -1,4 +1,5 @@
 import 'package:favourite_place/providers/user_places.dart';
+import 'dart:io';
 import 'package:favourite_place/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,8 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
   //creating controller
   final _titleController = TextEditingController();
+  //get the selected image / captured image
+  File? _selectedImage;
 
   //saving the text
   void _savePlace() {
@@ -50,8 +53,8 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(
                   const Color.fromARGB(255, 80, 59, 116),
-                  ),
-                  ),
+                ),
+              ),
               child: Text(
                 'Ok',
                 style: GoogleFonts.aBeeZee(
@@ -69,7 +72,7 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
     }
 
     //accessing the provider
-    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle);
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle, _selectedImage!);
 
     Navigator.of(context).pop();
   }
@@ -115,13 +118,17 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
             ),
 
             const SizedBox(height: 20),
-            
-            //Image Input 
-            ImageInput(),
+
+            //Image Input
+            ImageInput(
+              onPickImage: (image) {
+                _selectedImage = image;
+              },
+            ),
 
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: _savePlace, 
+              onPressed: _savePlace,
               icon: Icon(Icons.add),
               label: Text(
                 'Add Place',

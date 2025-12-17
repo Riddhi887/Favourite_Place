@@ -22,12 +22,16 @@ class PlaceDetailsScreen extends StatelessWidget {
         ),
      ),
      body: Center(
-          child: Text(
-            place.title, style: GoogleFonts.aBeeZee(
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-            color: const Color.fromARGB(255, 255, 255, 255),),
-     ),
+          child: Stack(
+            children: [
+              Image.file(
+                place.image,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ],
+          ),
      ),
     );
   }

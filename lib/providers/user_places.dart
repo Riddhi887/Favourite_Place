@@ -1,5 +1,5 @@
 //manages the places that are selectes or added by user using the riverpod package
-
+import 'dart:io';
 import 'package:favourite_place/models/place.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
@@ -10,8 +10,8 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
 
   //method that allows us to add new place using the riverpod by creating a new object
   //NOTE: we cannot directly add old object to memory instead have to create new obj
-  void addPlace(String title) {
-    final newPlace = Place(title: title);
+  void addPlace(String title, File image) {
+    final newPlace = Place(title: title, image: image);
     state = [
       newPlace,
       ...state,
