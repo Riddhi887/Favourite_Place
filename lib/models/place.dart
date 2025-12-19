@@ -16,10 +16,10 @@ class PlaceLocation {
 }
 
 class Place {
-  Place({required this.title, required this.image, /*required this.location*/})
+  Place({required this.title, required this.image, required this.location})
     : id = uuid.v4(); //generating id from uuid dynamically
   final String id;
   final String title;
   final File image;
-  //final PlaceLocation location;
+  final PlaceLocation location;
 }

@@ -41,6 +41,14 @@ class PlacesList extends StatelessWidget {
             color: const Color.fromARGB(255, 255, 255, 255),
           ),
         ),
+        subtitle: Text(places[index].location.address,
+        style: GoogleFonts.poppins(
+            // choose any Google font
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: const Color.fromARGB(255, 207, 207, 207),
+          ),
+           ),
 
         onTap: () {
           Navigator.of(context).push(

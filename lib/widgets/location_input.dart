@@ -6,7 +6,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({super.key});
+  const LocationInput({super.key, required this.onSelectLocation});
+
+  final void Function(PlaceLocation location) onSelectLocation;
 
   @override
   State<StatefulWidget> createState() {
@@ -28,7 +30,7 @@ class _LocationInputState extends State<LocationInput> {
 
     // Using LocationIQ Static Maps you can use google geocoding and state map api too
     // Sign up at locationiq.com for a free API key
-    // put access token after key = 
+    // put access token after key =
     return 'https://maps.locationiq.com/v3/staticmap?key=pk.ee1daea3c5ba57bc6f05f62f1daee708&center=$lat,$long&zoom=16&size=600x300&format=png&markers=icon:large-red-cutout|$lat,$long';
   }
 
@@ -125,7 +127,11 @@ class _LocationInputState extends State<LocationInput> {
       );
       _isGettingLocation = false;
     });
+
+     widget.onSelectLocation(_pickedLocation!);
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
