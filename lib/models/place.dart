@@ -1,6 +1,5 @@
 import 'package:uuid/uuid.dart';
 import 'dart:io';
-import 'package:favourite_place/widgets/location_input.dart';
 
 const uuid = Uuid();
 
