@@ -12,7 +12,7 @@ class MapScreen extends StatefulWidget {
       longitude: -122.084,
       address: '',
     ),
-    //if the dfault location is chosen
+    //if the default location is chosen
     this.isSelecting = true,
   });
 
@@ -26,8 +26,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-
-  LatLng? _pickedLocation;          //can use Location? _pickedLocation if using google maps
+  LatLng?
+  _pickedLocation; //can use Location? _pickedLocation if using google maps
 
   @override
   Widget build(BuildContext context) {
@@ -42,23 +42,27 @@ class _MapScreenState extends State<MapScreen> {
         actions: [
           if (widget.isSelecting)
             IconButton(
-              icon: const Icon(Icons.save_rounded), 
+              icon: const Icon(Icons.save_rounded),
               onPressed: () {
                 Navigator.of(context).pop(_pickedLocation);
               },
-              ),
+            ),
         ],
       ),
-      body: 
-     FlutterMap(
+      body: FlutterMap(
         options: MapOptions(
-        initialCenter: LatLng(widget.location.latitude, widget.location.longitude),
-        initialZoom: 16.0,
-        onTap: widget.isSelecting ? (position, point) {
-        setState(() {
-          _pickedLocation = point;
-        });
-        } : null,
+          initialCenter: LatLng(
+            widget.location.latitude,
+            widget.location.longitude,
+          ),
+          initialZoom: 16.0,
+          onTap: !widget.isSelecting
+              ? null
+              : (tapPosition, point) {
+                  setState(() {
+                    _pickedLocation = point;
+                  });
+                },
         ),
         children: [
           TileLayer(
@@ -66,20 +70,29 @@ class _MapScreenState extends State<MapScreen> {
             userAgentPackageName: 'com.example.favourite_place',
           ),
           MarkerLayer(
-            markers: (_pickedLocation == null && widget.isSelecting == true )? [] : [
-              Marker(
-              point: _pickedLocation != null ? _pickedLocation! : 
-              LatLng(
-                widget.location.latitude, widget.location.longitude
+            markers: [
+              if (_pickedLocation != null || !widget.isSelecting)
+                Marker(
+                  point:
+                      _pickedLocation ??
+                      LatLng(
+                        widget.location.latitude,
+                        widget.location.longitude,
+                      ),
+                  width: 50,
+                  height: 50,
+                  child: IgnorePointer(
+                    child: const Icon(
+                      Icons.location_on,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-              width: 50,
-              height: 50,
-              child: Icon(Icons.location_on, size: 50, color: Colors.red),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
